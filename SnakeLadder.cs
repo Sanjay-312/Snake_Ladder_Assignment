@@ -12,12 +12,29 @@ namespace SnakeLadderAssignment
         {
             int position ;
             int player_one=3;
+            int check_win;
             
             Console.WriteLine("player one position is {0}",player_one);
 
             while(player_one <= 100)
             {
-                position = roll_die();
+                check_win = CheckWin(player_one);
+                if(check_win == 1)
+                {
+                    Console.WriteLine("player won the game");
+                    break;
+
+                }
+                if (check_win == 2)
+                {
+                    position = 0;
+
+                }
+                else
+                {
+                    position = roll_die();
+                }
+               
                 if (position == 0)
                 {
                     Console.WriteLine("no play");
@@ -43,8 +60,30 @@ namespace SnakeLadderAssignment
                     Console.WriteLine("its a ladder");
                     player_one += position;
                 }
+                if (player_one >100)
+                {
+                    
+                    player_one -= position;
+                }
                 Console.WriteLine("player one rolls the die and get the position {0}", player_one);
             }    
+        }
+
+        public int CheckWin(int player_one)
+        {
+            if(player_one == 100)
+            {
+                return 1;
+            }
+            if (player_one > 100)
+            {
+                return 2;
+            }
+            else
+            {
+                return 0;
+            }
+
         }
 
         readonly Random random = new Random();
