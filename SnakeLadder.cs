@@ -8,20 +8,23 @@ namespace SnakeLadderAssignment
 {
     public class SnakeLadder
     {
-        public void start()
-        {
-            int position ;
-            int player_one=3;
-            int check_win;
-            
-            Console.WriteLine("player one position is {0}",player_one);
 
-            while(player_one <= 100)
+        public int play_game(int player_position,int turn)
+        {
+            int check_win;
+            int position;
+            while(player_position!=win_position)
             {
-                check_win = CheckWin(player_one);
-                if(check_win == 1)
+                check_win = CheckWin(player_position);
+                if(check_win == 1 && turn==1)
                 {
-                    Console.WriteLine("player won the game!!!");
+                    Console.WriteLine("player one wins!!");
+                    break;
+
+                }
+                if (check_win == 1 && turn == 0)
+                {
+                    Console.WriteLine("player two wins!!");
                     break;
 
                 }
@@ -34,48 +37,104 @@ namespace SnakeLadderAssignment
                 {
                     position = roll_die();
                 }
-               
                 if (position == 0)
                 {
                     Console.WriteLine("no play");
-                    player_one += position;
-
+                    player_position += position;
                 }
-                if (player_one == 0 && position < 0)
+                if(player_position==0 && position < 0)
                 {
                     Console.WriteLine("this is snake bite @ 0");
-                    player_one = 0;
+                   player_position = 0;
+
                 }
-                if (player_one > 0 && position < 0)
+                if (player_position > 0 && position < 0)
                 {
                     Console.WriteLine("this is a sanke bite");
-                    player_one += position;
-                    if (player_one < 0)
+                    player_position += position;
+                    if (player_position < 0)
                     {
-                        player_one = 0;
+                        player_position = 0;
                     }
                 }
                 if (position > 0)
                 {
                     Console.WriteLine("its a ladder");
-                    player_one += position;
+                   player_position += position;
                 }
-                if (player_one >100)
+                if(player_position> win_position) 
                 {
-                    
-                    player_one -= position;
+                    player_position -= position;
                 }
-                Console.WriteLine("player one rolls the die and get the position {0}", player_one);
-            }    
+                if(turn==1)
+                {
+                    Console.WriteLine("player one rolls dies and get position {0}", player_position);
+                    break;
+                }
+                if (turn == 0)
+                {
+                    Console.WriteLine("player two rolls dies and get position {0}", player_position);
+                    break;
+                }
+            }
+            return player_position;
+
+        }
+        const int win_position = 100;
+        const int start_position = 0;
+        public void start()
+        {
+            int player ;
+            int player_one=start_position,player_two=start_position;
+            Console.WriteLine("player one position is {0}", player_one);
+            Console.WriteLine("player two position is {0}",player_two);
+            int turn = 1;
+
+            while (true)
+            {
+                if (turn == 1)
+                {
+                    Console.WriteLine("player one turn");
+                    player = play_game(player_one, turn);
+                    turn = 0;
+                    if(player>player_one)
+                    {
+                        turn = 1;
+                    }
+                    player_one = player;
+                }
+                if(player_one==win_position)
+                {
+                    Console.WriteLine("player one wins");
+                    break;
+                }
+                if(turn == 0)
+                {
+                    Console.WriteLine("player two turn");
+                    player = play_game(player_two, turn);
+                    turn = 1;
+                    if (player > player_two)
+                    {
+                        turn = 0;
+                    }
+                    player_two = player;
+                }
+                if (player_two == win_position)
+                {
+                    Console.WriteLine("player two wins");
+                    break;
+                }
+            }
+             
         }
 
         public int CheckWin(int player_one)
         {
-            if(player_one == 100)
+            if(player_one == win_position)
             {
                 return 1;
             }
-            if (player_one > 100)
+            if (player_one > win_position)
             {
                 return 2;
             }
