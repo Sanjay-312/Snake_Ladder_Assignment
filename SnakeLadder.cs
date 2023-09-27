@@ -14,34 +14,37 @@ namespace SnakeLadderAssignment
             int player_one=3;
             
             Console.WriteLine("player one position is {0}",player_one);
-            position = roll_die();
-            if(position == 0)
-            {
-                Console.WriteLine("no play");
-                player_one += position;
 
-            }
-            if(player_one== 0 && position<0)
+            while(player_one <= 100)
             {
-                Console.WriteLine("this is snake bite @ 0");
-                player_one = 0;
-            }
-
-            if(player_one>0 &&  position<0)
-            {
-                Console.WriteLine("this is a sanke bite");
-                player_one += position;
-                if (player_one < 0)
+                position = roll_die();
+                if (position == 0)
                 {
+                    Console.WriteLine("no play");
+                    player_one += position;
+
+                }
+                if (player_one == 0 && position < 0)
+                {
+                    Console.WriteLine("this is snake bite @ 0");
                     player_one = 0;
                 }
-            }
-            if(position>0)
-            {
-                Console.WriteLine("its a ladder");
-                player_one += position;
-            }
-            Console.WriteLine("player one rolls the die and get the position {0}",player_one);
+                if (player_one > 0 && position < 0)
+                {
+                    Console.WriteLine("this is a sanke bite");
+                    player_one += position;
+                    if (player_one < 0)
+                    {
+                        player_one = 0;
+                    }
+                }
+                if (position > 0)
+                {
+                    Console.WriteLine("its a ladder");
+                    player_one += position;
+                }
+                Console.WriteLine("player one rolls the die and get the position {0}", player_one);
+            }    
         }
 
         readonly Random random = new Random();
