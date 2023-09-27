@@ -21,7 +21,7 @@ namespace SnakeLadderAssignment
                 check_win = CheckWin(player_one);
                 if(check_win == 1)
                 {
-                    Console.WriteLine("player won the game");
+                    Console.WriteLine("player won the game!!!");
                     break;
 
                 }
@@ -87,11 +87,13 @@ namespace SnakeLadderAssignment
         }
 
         readonly Random random = new Random();
+        int dice_thrown = 0;
 
         public int roll_die()
         {
             int dice, check;
             dice=random.Next(1,7);
+            dice_thrown++;
             Console.WriteLine("dice={0} ",dice);
             check = check_play();
 
@@ -118,6 +120,7 @@ namespace SnakeLadderAssignment
         public void Board()
         {
             start();
+            Console.WriteLine("number of time dice thrown is {0}",dice_thrown);
 
         }
     }
